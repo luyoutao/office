@@ -37,7 +37,7 @@ while [[ $# -gt 0 ]]; do
             break
             ;;
         *)
-            echo "$0 mouse_sshfs.bash --usrname USER --hostname SERVER --uid UID --gid GID [--precatalina] [--verbose] [--fs home lab kimdata]"
+            echo "$0 mount_sshfs.bash --usrname USER --hostname SERVER --uid UID --gid GID [--precatalina] [--verbose] [--fs home lab kimdata]"
             return 1
             ;;
     esac
