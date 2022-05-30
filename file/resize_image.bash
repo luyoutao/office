@@ -55,10 +55,13 @@ while [[ $# -gt 0 ]]; do
             ;;
         *)
             echo $0 resize_image.bash --in indir --out outdir [--ext png] [--dimmin 1200] [--ncores 1] [--verbose] 
-            return 1
+            exit 1
             ;;
     esac
 done
 mkdir -p $outdir
-
-ls $indir/*.$ext | sed 's/  /\n/' | parallel -j $ncores -k "resize {1} $indir $outdir $dimmin $verbose"
+if [[ $ncores -eq 1 ]]; then
+    ls $indir/*.$ext | sed 's/  /\n/' | while read -r old; do resize $old $indir $outdir $dimmin $verbose; done
+else
+    ls $indir/*.$ext | sed 's/  /\n/' | parallel -j $ncores -k "resize {1} $indir $outdir $dimmin $verbose"
+fi
